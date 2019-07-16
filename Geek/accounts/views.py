@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.forms import UserCreationForm
-
+from .forms import TeamFormsDIY
 # Create your views here.
 
 def index(request):
@@ -47,13 +47,14 @@ def register(request):
     # 如果为POST请求，验证表中信息
     if request.method == 'POST':
         # Django自带表单获取帐号密码
+        #register_form = TeamFormsDIY(request.POST)
         register_form = UserCreationForm(request.POST)
         # 判断表单是否填写正确
         if register_form.is_valid():
             # 正确就保存
             register_form.save()
             # 用保存的表单数据创建新用户
-            new_team = authenticate(username=register_form.cleaned_data['username'],password=register_form.cleaned_data['password1'])
+            new_team = authenticate(username=register_form.cleaned_data['username'],password=register_form.cleaned_data['password1'])       
             # 注册完成，保持用户登录
             auth_login(request,new_team)
             # 重定向到主页
@@ -61,6 +62,7 @@ def register(request):
     # 不是POST请求得到填写表单
     else:        
         register_form = UserCreationForm()
+        #register_form = TeamFormsDIY(request.POST)
     # 将填写表单赋值到字典
     content['register_form'] = register_form
     # 返回注册界面
