@@ -46,3 +46,12 @@ python manage.py migrate
     - 队伍注册
     - 队伍信息
 
+#### 2019-07-16 (21:55)
+
+- 公共部分
+    - Geek下的setting.py增加了LOGIN_URL参数
+- 增加表
+    - author(出题人),challenge(问题及相关信息),Category(该题分类)
+- 目前已实现功能
+    - 题目相关处理
+    
