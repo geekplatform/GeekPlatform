@@ -13,6 +13,8 @@
 
     {% if user.is_authenticated %}
         <a href="{% url 'accounts:logout' %}">logout</a>
+        <a href="{% url 'accounts:team_information' %}">队伍信息</a>
+
     {% else %}
         <a href="{% url 'accounts:login' %}">login</a>
         <a href="{% url 'accounts:register' %}">register</a>

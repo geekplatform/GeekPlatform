@@ -5,6 +5,7 @@ from .models import Teams
 
 # Register your models here.
 
+# 定义用户表在管理员后台显示方式
 class TeamsInline(admin.TabularInline):
     model = Teams
     can_delete = False

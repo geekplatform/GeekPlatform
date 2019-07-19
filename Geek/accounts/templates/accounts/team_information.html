@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is index</h1>
+    <hr>
+    <a href="{% url 'accounts:index' %}">index</a>
+
+    <a href="{% url 'accounts:logout' %}">logout</a>
+    <a href="{% url 'accounts:change_information' %}">change_information</a>
+    <a href="{% url 'accounts:change_password' %}">change_password</a>
+    <div>
+        <p>{{ team.username }}</p>
+        <p>{{ team.email }}</p>
+        <p>{{ team.teams.team_member_one_name }}</p>
+        <p>{{ team.teams.team_member_two_name }}</p>
+        <p>{{ team.teams.is_school }}</p>
+        <p>{{ team.teams.team_member_one_school_ID }}</p>
+        <p>{{ team.teams.team_member_two_school_ID }}</p>
+    </div>
+    
+</body>
+</html>

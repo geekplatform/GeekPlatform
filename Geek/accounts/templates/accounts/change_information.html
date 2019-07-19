@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is index</h1>
+    <hr>
+    <a href="{% url 'accounts:index' %}">index</a>
+
+    <a href="{% url 'accounts:logout' %}">logout</a>
+    <a href="{% url 'accounts:team_information' %}">team_information</a>
+    <a href="{% url 'accounts:change_password' %}">change_password</a>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ change_information_forms.errors }}
+        <p>
+            <label for="id_username">用户名:</label> 
+            <input type="text" name="username" maxlength="150" required id="id_username" value="{{ team_information.username }}"> 
+            <span class="helptext">必填。150个字符或者更少。包含字母，数字和仅有的@/./+/-/_符号。</span>
+        </p>
+        <p>
+            <label for="id_member_one_name">队员一ID:</label> 
+            <input type="text" name="member_one_name" maxlength="50" required id="id_member_one_name" value="{{ team_information.teams.team_member_one_name }}">
+        </p>
+        <p>
+            <label for="id_member_two_name">队员二ID:</label> 
+            <input type="text" name="member_two_name" maxlength="50" required id="id_member_two_name" value="{{ team_information.teams.team_member_two_name}}"
+        </p>
+        <p>
+            <label for="id_is_school">是否为本校学生:</label> 
+            <select name="is_school" id="id_is_school" value='{{ team_information.teams.is_school }}'>
+                {% if team_information.teams.is_school == True %}
+                    <option value="1" >未知</option>
+                    <option value="2" selected>是</option>
+                    <option value="3">否</option>
+                {% elif team_information.teams.is_school == False %}
+                    <option value="1" >未知</option>
+                    <option value="2" >是</option>
+                    <option value="3" selected>否</option>
+                {% else %}
+                    <option value="1" selected>未知</option>
+                    <option value="2" >是</option>
+                    <option value="3">否</option>
+                {% endif %}
+            </select>
+        </p>
+        <p>
+            <label for="id_member_one_school_ID">队员一学号:</label> 
+            <input type="text" name="member_one_school_ID" maxlength="50" required id="id_member_one_school_ID" value="{{ team_information.teams.team_member_one_school_ID }}">
+
+        </p>
+        <p>
+            <label for="id_member_two_school_ID">队员二学号:</label> 
+            <input type="text" name="member_two_school_ID" maxlength="50" required id="id_member_two_school_ID" value="{{ team_information.teams.team_member_two_school_ID }}">
+        </p>
+        <p>
+        <button type="submit">submit</button>
+        </p>
+    </form>
+    
+    
+    
+    
+</body>
+</html>
