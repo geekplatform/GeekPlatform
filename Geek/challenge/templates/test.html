@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>challenge</title>
+</head>
+<body>
+{% for challenges in challenge_list %}
+<h1 class="entry-title">题目:{{challenges.title}} </h1>
+<article>描述:{{challenges.text}} </article>
+<div class="entry-meta">
+                    <span class="post-category">分类:{{ challenges.category.name }}</span>
+                    <span class="post-date"><time class="entry-date"
+                                                              datetime="{{ post.created_time }}">出题时间:{{ challenges.created_time }}</time></a></span>
+                    <span class="post-author">出题人:{{ challenges.author }}</span>
+                </div>
+
+{% empty %}
+<div class="no-challenges">暂时无发布的问题</div>
+{% endfor %}
+</body>
+</html>
