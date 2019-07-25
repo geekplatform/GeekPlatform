@@ -1,4 +1,46 @@
-<!DOCTYPE html>
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}
+    Register|Geek 10th
+{% endblock title %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'accounts/register/css/register.css' %}">
+{% endblock link %}
+{% block style %}
+       
+{% endblock style %}
+{% block page_word %}{% endblock page_word %}
+{% block body %}
+    <div class="container regi">
+        <form action="" method="post" class="form">
+            {% csrf_token %}
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1">用户名</span>
+                <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" name="username">
+            </div>
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1">密码</span>
+                <input type="password" class="form-control" placeholder="password" aria-describedby="sizing-addon1" name="password1">
+            </div>
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1">确认密码</span>
+                <input type="password" class="form-control" placeholder="password" aria-describedby="sizing-addon1" name="password2">
+            </div>
+            <div>
+                <button class="btn btn-info btn-block btn-lg" type="submit">注册</button>
+            </div>
+            <div>
+                已有帐号？<a href="{% url 'accounts:login' %}">登录</a>
+            </div>
+            
+        </form>
+    </div>
+
+{% endblock body %}
+{% block script %}
+
+{% endblock script %}
+<!-- <!DOCTYPE html>  
 <html lang="zh-hans">
 <head>
     <meta charset="UTF-8">
@@ -32,4 +74,4 @@
         <button type="submit">register</button>
     </form>
 </body>
-</html>
+</html> -->

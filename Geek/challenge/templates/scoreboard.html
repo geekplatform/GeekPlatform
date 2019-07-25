@@ -18,5 +18,18 @@
     {% endfor %}
 
 </table>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <p>分类:{{ form.Form_category }}</p>
+    <p>{{ form.Form_is_freshman }} </p>
+    <input type="submit" value="添加" />
+</form>
+<table>
+    {% for result in results %}
+    <p>队伍名：{{result.teamname}} 分数: {{result.score}}</p>
+    {% endfor %}
+</table>
+
 </body>
 </html>

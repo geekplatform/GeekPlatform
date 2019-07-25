@@ -9,8 +9,10 @@ from .models import Teams
 # Create your views here.
 
 def index(request):
-
-    return render(request,'accounts/index.html')
+    content = {}
+    if request.user:
+        content['team'] = request.user
+    return render(request,'accounts/index.html',content)
 
 # 登录逻辑
 def login(request):
