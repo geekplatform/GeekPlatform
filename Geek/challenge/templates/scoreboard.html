@@ -5,6 +5,10 @@
     <title>Title</title>
 </head>
 <body>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> bd81a28ca904d29ed5af335e7a292a2877a0a316
 <form action="" method="post">
     {% csrf_token %}
     {{form}}
@@ -18,5 +22,25 @@
     {% endfor %}
 
 </table>
+<<<<<<< HEAD
+=======
+=======
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    <p>分类:{{ form.Form_category }}</p>
+    <p>{{ form.Form_is_freshman }} </p>
+    <input type="submit" value="添加" />
+</form>
+<table>
+    {% for result in results %}
+    <p>队伍名：{{result.teamname}} 分数: {{result.score}}</p>
+    {% endfor %}
+</table>
+
+
+>>>>>>> 7dfa5e333789c8f17b11c8de630aac2768213949
+>>>>>>> bd81a28ca904d29ed5af335e7a292a2877a0a316
 </body>
 </html>

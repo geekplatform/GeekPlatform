@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from django.shortcuts import render, redirect,get_list_or_404
+=======
+from django.shortcuts import render, redirect
+>>>>>>> bd81a28ca904d29ed5af335e7a292a2877a0a316
 from .models import Challenge, Solve, Category
 from django.contrib.auth.decorators import login_required
 from accounts.models import Teams
@@ -72,6 +76,9 @@ def scoreboard(request):
         results = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
         form = ScoreboardForm()
         return render(request, 'scoreboard.html', context={'form': form, 'results': results})
+<<<<<<< HEAD
 def info(request,pk):
     pass
 
+=======
+>>>>>>> bd81a28ca904d29ed5af335e7a292a2877a0a316
