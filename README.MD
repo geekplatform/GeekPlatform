@@ -80,3 +80,11 @@ python manage.py migrate
 - flag的提交
 - scoreborad的在各种分类下的呈现
     - 请确保先在category中建一个所有种类的数据，并确保其id为1
+---
+
+### 2019-7-24
+- 已经做好主页的效果
+- base.html也做好了,想要加路由按照里面的格式加就可以了。
+    - 在accounts/templates/base.html
+- 创建一个static文件夹，用来存储静态文件，如css，js
+- 登录和注册的前端写好例框架，细节没处理，如错误提示，细节美化没做。
