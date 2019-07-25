@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<<<<<<< HEAD
+<form action="" method="post">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="submit" />
+</form>
+<table>
+    {% for result in results %}
+    <tbody>
+    <td>teamname:{{result.teamname}}</td> <td>score:{{result.score}}</td>
+    </tbody>
+    {% endfor %}
+
+</table>
+=======
+
+
+<form action="" method="post">
+    {% csrf_token %}
+    <p>分类:{{ form.Form_category }}</p>
+    <p>{{ form.Form_is_freshman }} </p>
+    <input type="submit" value="添加" />
+</form>
+<table>
+    {% for result in results %}
+    <p>队伍名：{{result.teamname}} 分数: {{result.score}}</p>
+    {% endfor %}
+</table>
+
+
+>>>>>>> 7dfa5e333789c8f17b11c8de630aac2768213949
+</body>
+</html>
