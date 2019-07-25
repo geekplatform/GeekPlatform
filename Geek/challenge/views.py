@@ -48,19 +48,19 @@ def scoreboard(request):
             freshman = choices['Form_is_freshman']
             category = choices['Form_category']
             #看所有
-            if category == 3 and freshman == 0:
+            if category == 1 and freshman == 0:
                 sql = "SELECT MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id  GROUP BY team_id_id ORDER BY score DESC ;"
                 cursor.execute(sql)
             #看所有分类+大一
-            elif category == 3 and freshman == 1:
+            elif category == 1 and freshman == 1:
                 sql = "SELECT MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id JOIN accounts_teams ON  accounts_teams.team_id=challenge_solve.team_id_id WHERE   accounts_teams.is_freshman= 1  GROUP BY team_id_id ORDER BY score DESC ;"
                 cursor.execute(sql)
             #看指定分类+所有人
-            elif category != 3 and freshman == 0:
+            elif category != 1 and freshman == 0:
                 sql = "SELECT MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id WHERE challenge_challenge.category_id=%s GROUP BY team_id_id ORDER BY score DESC ;"
                 cursor.execute(sql, category)
             #看所有分类+大一
-            elif category != 3 and freshman == 1:
+            elif category != 1 and freshman == 1:
                 sql = "SELECT MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id JOIN accounts_teams ON  accounts_teams.team_id=challenge_solve.team_id_id WHERE challenge_challenge.category_id=%s AND accounts_teams.is_freshman= 1  GROUP BY team_id_id ORDER BY score DESC ;"
                 cursor.execute(sql, category)
             results = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
