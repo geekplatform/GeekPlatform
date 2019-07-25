@@ -14,6 +14,12 @@
                                                               datetime="{{ post.created_time }}">出题时间:{{ challenges.created_time }}</time></a></span>
                     <span class="post-author">出题人:{{ challenges.author }}</span>
                 </div>
+<form action="" method="post">
+    {% csrf_token %}
+
+    flag:{{form.s_flag}}
+    <input type="submit" value="添加" />
+</form>
 
 {% empty %}
 <div class="no-challenges">暂时无发布的问题</div>
