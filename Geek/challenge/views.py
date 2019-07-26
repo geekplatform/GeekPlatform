@@ -72,6 +72,7 @@ def scoreboard(request):
         results = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
         form = ScoreboardForm()
         return render(request, 'scoreboard.html', context={'form': form, 'results': results})
+<<<<<<< HEAD
 
 
 def info(request,pk):
@@ -84,3 +85,8 @@ def info(request,pk):
     return render(request,"info.html",context={"has_solved":has_solved,"teamname":team_name})
 
 
+=======
+        
+def info(request,pk):
+    pass
+>>>>>>> bb564a06e4a2945c1cbc145fee6acf77342a77f8

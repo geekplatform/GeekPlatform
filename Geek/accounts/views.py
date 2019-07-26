@@ -79,7 +79,7 @@ def register(request):
 def team_information(request):
     content = {}
     # 队伍已登录，直接获取登录用户信息。
-    content['team'] = request.user
+    content['team_information'] = request.user
     # 传到模板
     return render(request, 'accounts/team_information.html',content)
 
@@ -99,11 +99,11 @@ def change_information(request):
             request.user.teams.team_member_one_name = change_information_forms.cleaned_data['member_one_name']
             request.user.teams.team_member_two_name = change_information_forms.cleaned_data['member_two_name']
             request.user.teams.is_school = change_information_forms.cleaned_data['is_school']
+            request.user.teams.is_freshman = change_information_forms.cleaned_data['is_freshman']
             request.user.teams.team_member_one_school_ID = change_information_forms.cleaned_data['member_one_school_ID']
             request.user.teams.team_member_two_school_ID = change_information_forms.cleaned_data['member_two_school_ID']
             # 保存用户表
             request.user.teams.save()
-            return redirect('accounts:team_information')
     else:
         # 不是POST请求，就新建一个表单
         change_information_forms = TeamChangeForms(instance=request.user)
@@ -111,7 +111,7 @@ def change_information(request):
     content['change_information_forms'] = change_information_forms
     # 用户信息传到模板，是为了默认填写
     content['team_information'] = request.user
-    return render(request, 'accounts/change_information.html',content)
+    return render(request, 'accounts/team_information.html',content)
 
 # 必须为登录才能加载页面，否在跳转到登录页面
 @login_required(login_url='accounts:login')

@@ -1,0 +1,15 @@
+.regi{
+    background-color:rgb(255, 255, 255);
+    width:25%;
+    height:650px;
+    position:relative;
+    top:170px;
+    border-radius:10px;
+    box-shadow:10px 5px 50px rgb(133, 124, 124);
+}
+.form div{
+    padding: 30px;
+    position: relative;
+    top: 80px;	
+    text-align: center;
+}
