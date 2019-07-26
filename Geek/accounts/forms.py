@@ -32,8 +32,10 @@ class TeamChangeForms(UserChangeForm):
     member_one_name = forms.CharField(required=True, max_length=50, label='队员一ID')
     # 队员二名字
     member_two_name = forms.CharField(required=True, max_length=50, label='队员二ID')
-    # 队伍时否为本校队伍
+    # 队伍时是否为本校队伍
     is_school = forms.NullBooleanField(required=True, label='是否为本校学生')
+    # 队伍是否为本校大一队伍
+    is_freshman = forms.NullBooleanField(required=True, label='是否为本校大一学生')
     # 队员一学号
     member_one_school_ID = forms.CharField(required=True, max_length=50, label='队员一学号')
     # 队员二学号
@@ -43,4 +45,4 @@ class TeamChangeForms(UserChangeForm):
         # 属于User 
         model = User
         # 定义普通用户可修改字段
-        fields = ['username','member_one_name','member_two_name','is_school','member_one_school_ID','member_two_school_ID']
+        fields = ['username','member_one_name','member_two_name','is_school','is_freshman','member_one_school_ID','member_two_school_ID']

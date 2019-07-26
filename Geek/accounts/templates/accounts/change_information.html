@@ -28,11 +28,29 @@
         </p>
         <p>
             <label for="id_member_two_name">队员二ID:</label> 
-            <input type="text" name="member_two_name" maxlength="50" required id="id_member_two_name" value="{{ team_information.teams.team_member_two_name}}"
+            <input type="text" name="member_two_name" maxlength="50" required id="id_member_two_name" value="{{ team_information.teams.team_member_two_name}}">
         </p>
         <p>
             <label for="id_is_school">是否为本校学生:</label> 
-            <select name="is_school" id="id_is_school" value='{{ team_information.teams.is_school }}'>
+            <select name="is_school" id="id_is_school">
+                {% if team_information.teams.is_school == True %}
+                    <option value="1" >未知</option>
+                    <option value="2" selected>是</option>
+                    <option value="3">否</option>
+                {% elif team_information.teams.is_school == False %}
+                    <option value="1" >未知</option>
+                    <option value="2" >是</option>
+                    <option value="3" selected>否</option>
+                {% else %}
+                    <option value="1" selected>未知</option>
+                    <option value="2" >是</option>
+                    <option value="3">否</option>
+                {% endif %}
+            </select>
+        </p>
+         <p>
+            <label for="id_is_school">是否为本校大一学生:</label> 
+            <select name="is_freshman" id="id_is_school">
                 {% if team_information.teams.is_school == True %}
                     <option value="1" >未知</option>
                     <option value="2" selected>是</option>

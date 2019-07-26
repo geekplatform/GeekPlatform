@@ -1,3 +1,4 @@
+from django.shortcuts import render, redirect,get_list_or_404
 from django.shortcuts import render, redirect
 from .models import Challenge, Solve, Category
 from django.contrib.auth.decorators import login_required
@@ -72,3 +73,9 @@ def scoreboard(request):
         results = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
         form = ScoreboardForm()
         return render(request, 'scoreboard.html', context={'form': form, 'results': results})
+
+        
+def info(request,pk):
+    pass
+
+
