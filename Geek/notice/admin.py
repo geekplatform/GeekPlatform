@@ -5,5 +5,5 @@ from .models import Notice
 
 
 class NoticeAdd(admin.ModelAdmin):
-    list_display = ['Notice_name', 'Notice_text', 'pub_date']
+    list_display = ['title', 'content', 'created_time']
 admin.site.register(Notice, NoticeAdd)

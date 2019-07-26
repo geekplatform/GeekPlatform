@@ -5,6 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-
+{{teamname}}
+已完成如下:
+{% for solved in has_solved %}
+    <p>题目:{{solved.title}}</p>
+    {% endfor %}
 </body>
 </html>

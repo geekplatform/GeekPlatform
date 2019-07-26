@@ -80,11 +80,6 @@ python manage.py migrate
 - flag的提交
 - scoreborad的在各种分类下的呈现
     - 请确保先在category中建一个所有种类的数据，并确保其id为1
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
----
 
 ### 2019-7-24
 - 已经做好主页的效果
@@ -92,5 +87,9 @@ python manage.py migrate
     - 在accounts/templates/base.html
 - 创建一个static文件夹，用来存储静态文件，如css，js
 - 登录和注册的前端写好例框架，细节没处理，如错误提示，细节美化没做。
->>>>>>> bd81a28ca904d29ed5af335e7a292a2877a0a316
->>>>>>> afb295aa4c89575b4793456023c2e929fda96164
+
+---
+### 2019-7-26
+- 公告的完善(支持markdown，由于我的环境没切，所有请先 pip install markdown 再更新下 pip freeze > requirements.txt)
+- 那些队伍完成的具体情况
+- 增加了文件上传模块

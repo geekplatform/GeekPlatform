@@ -3,5 +3,6 @@ from django.urls import path
 
 app_name = 'notice'
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('notice', views.index, name='index'),
+
 ]

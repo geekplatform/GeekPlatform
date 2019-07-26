@@ -1,16 +1,16 @@
-from django.shortcuts import render, redirect,get_list_or_404
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import Challenge, Solve, Category
 from django.contrib.auth.decorators import login_required
 from accounts.models import Teams
 from django.db.models import Sum, Max, Count
 from django.db import connection
-
-cursor = connection.cursor()
-# Create your views here.
 from .forms import SubmitForms, ScoreboardForm
 from django.contrib.auth.models import User
 
+# Create your views here.
 
+
+cursor = connection.cursor()
 @login_required
 def index(request):
     challenge_list = Challenge.objects.all().order_by('-created_time')
@@ -38,7 +38,7 @@ def index(request):
     return render(request, 'test.html', context={'challenge_list': challenge_list, 'form': form})
 
 
-@login_required
+
 def scoreboard(request):
     results = {}
     if request.method == "POST":
@@ -49,32 +49,38 @@ def scoreboard(request):
             category = choices['Form_category']
             #看所有
             if category == 1 and freshman == 0:
-                sql = "SELECT MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id  GROUP BY team_id_id ORDER BY score DESC ;"
+                sql = "SELECT team_id_id AS id, MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id  GROUP BY team_id_id ORDER BY score DESC ;"
                 cursor.execute(sql)
             #看所有分类+大一
             elif category == 1 and freshman == 1:
-                sql = "SELECT MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id JOIN accounts_teams ON  accounts_teams.team_id=challenge_solve.team_id_id WHERE   accounts_teams.is_freshman= 1  GROUP BY team_id_id ORDER BY score DESC ;"
+                sql = "SELECT team_id_id AS id,MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id JOIN accounts_teams ON  accounts_teams.team_id=challenge_solve.team_id_id WHERE   accounts_teams.is_freshman= 1  GROUP BY team_id_id ORDER BY score DESC ;"
                 cursor.execute(sql)
             #看指定分类+所有人
             elif category != 1 and freshman == 0:
-                sql = "SELECT MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id WHERE challenge_challenge.category_id=%s GROUP BY team_id_id ORDER BY score DESC ;"
+                sql = "SELECT team_id_id AS id,MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id WHERE challenge_challenge.category_id=%s GROUP BY team_id_id ORDER BY score DESC ;"
                 cursor.execute(sql, category)
             #看所有分类+大一
             elif category != 1 and freshman == 1:
-                sql = "SELECT MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id JOIN accounts_teams ON  accounts_teams.team_id=challenge_solve.team_id_id WHERE challenge_challenge.category_id=%s AND accounts_teams.is_freshman= 1  GROUP BY team_id_id ORDER BY score DESC ;"
+                sql = "SELECT team_id_id AS id,MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id JOIN accounts_teams ON  accounts_teams.team_id=challenge_solve.team_id_id WHERE challenge_challenge.category_id=%s AND accounts_teams.is_freshman= 1  GROUP BY team_id_id ORDER BY score DESC ;"
                 cursor.execute(sql, category)
             results = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
             return render(request, 'scoreboard.html', context={'form': form, 'results': results})
     else:
         #默认看所有人+所有分类
-        sql = "SELECT MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id   GROUP BY team_id_id ORDER BY score DESC ;"
+        sql = "SELECT team_id_id AS id,MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id   GROUP BY team_id_id ORDER BY score DESC ;"
         cursor.execute(sql)
         results = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
         form = ScoreboardForm()
         return render(request, 'scoreboard.html', context={'form': form, 'results': results})
+
+
 def info(request,pk):
-    pass
-
-
+    team_name=get_object_or_404(User,pk=pk)
+    has_solved={}
+    sql="select challenge_challenge.title from challenge_solve join challenge_challenge on challenge_solve.challenge_id_id= challenge_challenge.id where team_id_id=%s"
+    cursor.execute(sql,pk)
+    has_solved = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
+    print(has_solved)
+    return render(request,"info.html",context={"has_solved":has_solved,"teamname":team_name})
 
 
