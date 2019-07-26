@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect,get_list_or_404
-from django.shortcuts import render, redirect
 from .models import Challenge, Solve, Category
 from django.contrib.auth.decorators import login_required
 from accounts.models import Teams
@@ -19,7 +18,7 @@ def index(request):
     if request.method == "POST":
         form = SubmitForms(request.POST)
         if form.is_valid():
-            id = form.cleaned_data['challenge_id']
+            id = request.POST.get('challenge_id')
             flag = form.cleaned_data['s_flag']
             query = Challenge.objects.filter(id=id)
             if len(query) == 1:
@@ -73,9 +72,6 @@ def scoreboard(request):
         results = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
         form = ScoreboardForm()
         return render(request, 'scoreboard.html', context={'form': form, 'results': results})
-
         
 def info(request,pk):
     pass
-
-
