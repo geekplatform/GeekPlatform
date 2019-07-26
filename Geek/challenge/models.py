@@ -53,6 +53,7 @@ class Solve(models.Model):
 
 
 class File(models.Model):
+
     name = models.CharField(max_length=200, blank=True, verbose_name="文件名称")
     url = models.FileField(verbose_name="上传文件", null=True, upload_to='media')
 
