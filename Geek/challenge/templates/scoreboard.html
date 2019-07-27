@@ -1,15 +1,99 @@
-<!DOCTYPE html>
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+    scoreboard|Geek 10th
+{% endblock title %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'challenge/scoreboard/css/scoreboard.css' %}">
+{% endblock link %}
+
+{% block style %}
+       
+{% endblock style %}
+
+{% block page_word %}{% endblock page_word %}
+
+{% block body %}
+    <div class="container regi">
+        <div class="row"><div class="col-md-2">
+                <form action="" method="post">
+                        <button type="button" class="btn btn-default">Left</button>
+                </form>
+        </div>
+        <div class="col-md-2">
+                <form action="" method="post">
+                        <button type="button" class="btn btn-default">Left</button>
+                </form>
+        </div>
+            <div class="col-md-1">
+                    <form action="" method="post">
+                            <button type="button" class="btn btn-default">Left</button>
+                    </form>
+            </div>
+            <div class="col-md-1">
+                    <form action="" method="post">
+                            <button type="button" class="btn btn-default">Left</button>
+                    </form>
+            </div>
+            <div class="col-md-1">
+                    <form action="" method="post">
+                            <button type="button" class="btn btn-default">Left</button>
+                    </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="container regi2">
+        <!-- <form action="" method="post" id="myform">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" value="submit" />
+            
+           <div type="submit" class="btn-group btn-group-lg" role="group" >sdsdsd</div>
+        </form> -->
+        
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Teamname</th>
+                    <th>score</th>
+                </tr>
+            </thead>
+            {% for index,result in results %}
+            <tbody>
+                <th scope="row">{{ index|add:1 }}</th>
+                <td>{{result.teamname}}</td> 
+                <td>{{result.score}}</td>
+            </tbody>
+            {% endfor %}
+        
+        </table>
+    </div>
+
+{% endblock body %}
+
+{% block script %}
+    
+{% endblock script %}
+
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<form action="" method="post">
+<form action="" method="post" id="myform">
     {% csrf_token %}
     {{form}}
-    <input type="submit" value="submit" />
+    <!-- <input type="submit" value="submit" /> -->
+    
+    <button type="submit" class="cir"><span class="label label-default" type="submit">Default</span></button>
 </form>
+
 <table>
     {% for result in results %}
     <tbody>
@@ -22,4 +106,4 @@
 
 
 </body>
-</html>
+</html> {% endcomment %}
