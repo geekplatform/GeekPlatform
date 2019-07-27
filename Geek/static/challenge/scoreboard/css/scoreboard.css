@@ -1,3 +1,4 @@
+/* 分类div的样式 */
 .regi{
     background-color:rgb(255, 255, 255);
     width: 50%;
@@ -8,25 +9,44 @@
     box-shadow: 10px 5px 50px rgb(133, 124, 124);
     text-align: center;
     line-height: center;
+    float:center;
+    line-height:50px;
 }
+/* span的样式 */
 .cir{
     font-size:20px;
-    box-shadow:100px 100px 20px 1px #DCDCDC;
-    position: relative;
-    top: 16px;
-    /* border: none; */
-    background-color: #DCDCDC;
+    box-shadow:1px 1px 5px 1px #DCDCDC;
+    margin:5px;
+    border:none;
+    display:-moz-inline-box;
+    display:inline-block;
     color:#BC8F8F;
-    
+    text-align: center;
 }
-.regi2{
+/* span的位置 */
+.span-c{
+    position: relative;
+    top: 10px;
+    line-height: 10px;
+}
+/* 去吊下划线 */
+.tags a{   
+    text-decoration:none;
+}
+/* 鼠标滑过span颜色 */
+.span-c:hover span{
+    color:#FFFAFA;
+    background-color:#5cb85c
+}
+/* 排名的div */
+.rank{
     background-color:rgb(255, 255, 255);
     width: 50%;
-    height: 700px;
     position:relative;
     top: 250px;
     border-radius: 10px;
     box-shadow: 10px 5px 50px rgb(133, 124, 124);
-    /* text-align: center;
-    line-height: center; */
+}
+.tal-w th{
+    font-size: 20px;
 }
