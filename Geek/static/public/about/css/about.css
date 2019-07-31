@@ -1,0 +1,20 @@
+.regi{
+    background-color:rgb(255, 255, 255);
+    width:70%;
+    /* height:650px; */
+    position:relative;
+    top:200px;
+    border-radius:10px;
+    box-shadow:10px 5px 50px rgb(133, 124, 124);
+}
+.i-title{
+    text-align: center;
+    font: 2em sans-serif;
+    margin-top: 10px;
+}
+.md-img ul li ul li img,
+.md-img ul li p img,
+.md-img ul li img,
+.md-img p img{
+    max-width:100%;
+}

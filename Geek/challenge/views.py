@@ -15,8 +15,21 @@ cursor = connection.cursor()
 
 @login_required
 def index(request):
+
+    pk = request.user.id
+    team_name = get_object_or_404(User, pk=pk)
+    has_solved = {}
+    has_solved_title = []
+    sql = "select challenge_challenge.title from challenge_solve join challenge_challenge on challenge_solve.challenge_id_id= challenge_challenge.id where team_id_id=%s"
+    cursor.execute(sql, pk)
+    has_solved = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
+    for i in has_solved:
+        has_solved_title.append(i['title'])
+
+    tags = Category.objects.all()
     challenge_list = Challenge.objects.all().order_by('-created_time')
     current_user = request.user
+
     if request.method == "POST":
         form = SubmitForms(request.POST)
         if form.is_valid():
@@ -28,16 +41,27 @@ def index(request):
                     # 如果没有提交过就在数据库中添加
                     if not Solve.objects.filter(challenge_id_id=id, team_id_id=current_user.id):
                         Solve.objects.create(challenge_id_id=id, team_id_id=current_user.id)
-                    return redirect('sucess.html')
+                        
+                    return redirect('challenge:success')
+                    # success = {"success":'Flag正确'}
+                    # sql = "select challenge_challenge.title from challenge_solve join challenge_challenge on challenge_solve.challenge_id_id= challenge_challenge.id where team_id_id=%s"
+                    # cursor.execute(sql, pk)
+                    # has_solved = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
+                    # for i in has_solved:
+                    #     if i not in has_solved_title:
+                    #         has_solved_title.append(i['title'])
+                    # return render(request, 'challenges.html', context={'tags':tags,'has_solved_title':has_solved_title, 'success': success})
                 # 错误返回
                 else:
-                    return redirect('wrong.html')
+                    return redirect('challenge:wrong')
+                    # wrong = {"wrong":'Flag错误' }
+                    # return render(request, 'challenges.html', context={'tags':tags,'has_solved_title':has_solved_title, 'wrong': wrong})
             # 没有这道题返回
             else:
                 return redirect('id_flag_wrong.html')
     else:
         form = SubmitForms()
-    return render(request, 'test.html', context={'challenge_list': challenge_list, 'form': form})
+    return render(request, 'challenges.html', context={'tags':tags,'has_solved_title':has_solved_title})
 
 
 """
@@ -78,13 +102,32 @@ def scoreboard(request):
 
 @login_required
 def info(request, pk):
+
     team_name = get_object_or_404(User, pk=pk)
-    has_solved = {}
-    sql = "select challenge_challenge.title from challenge_solve join challenge_challenge on challenge_solve.challenge_id_id= challenge_challenge.id where team_id_id=%s"
-    cursor.execute(sql, pk)
-    has_solved = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
-    print(has_solved)
-    return render(request, "info.html", context={"has_solved": has_solved, "teamname": team_name})
+
+    categories = {}
+    all_challenges = {}
+
+    current_user = team_name
+    challenges = current_user.team_id.all().order_by('-created_time')
+    for challenge in challenges:
+
+        if challenge.challenge_id.category.name in categories:
+            categories[challenge.challenge_id.category.name] += 1
+        else:
+            categories[challenge.challenge_id.category.name] = 1
+
+    for category in Category.objects.all():
+        all_challenges[category.name] = len(category.challenge_set.all())
+
+        if category.name  not in categories:
+            categories[category.name] = 0
+    
+
+    categories= sorted(categories.items(),key=lambda x:x[0])
+    all_challenges = sorted(all_challenges.items(),key=lambda x:x[0])
+
+    return render(request, "info.html", context={"teamname": team_name, "categories" : categories,'all_challenges':all_challenges,'challenges':challenges})
 
 
 @login_required
@@ -119,10 +162,21 @@ def scoreboard(request, secret, category):
 
 
 def rank(request):
-
     sql = "SELECT team_id_id AS id, MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id  GROUP BY team_id_id ORDER BY score DESC ;"
     cursor.execute(sql)
     results = enumerate([dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()])
     # 题目所有分类
     tags = Category.objects.all()
     return render(request, 'scoreboard.html', context={'results': results,'tags': tags})
+
+
+
+@login_required(login_url='accounts:login')
+def wrong(request):
+    return render(request,'wrong.html')
+
+
+
+@login_required(login_url='accounts:login')
+def success(request):
+    return render(request,'success.html')

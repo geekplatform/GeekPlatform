@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Challenge, Author, File
+from .models import Category, Challenge, Author
 
 
 # Register your models here.
@@ -12,4 +12,3 @@ class ChallengeAdd(admin.ModelAdmin):
 admin.site.register(Challenge, ChallengeAdd)
 admin.site.register(Category)
 admin.site.register(Author)
-admin.site.register(File)

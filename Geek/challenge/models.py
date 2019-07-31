@@ -25,6 +25,8 @@ class Challenge(models.Model):
     title = models.CharField(max_length=200, default="", verbose_name="题目")
     # 正文
     content = models.TextField(verbose_name="正文")
+    # 题目地址
+    link = models.CharField(verbose_name="题目地址",null=True,max_length=500,default=" ")
     # 创建时间
     created_time = models.DateTimeField(verbose_name="创建时间")
     # 最后一次修改时间
@@ -50,13 +52,5 @@ class Solve(models.Model):
     challenge_id = models.ForeignKey(Challenge, on_delete=models.CASCADE, related_name="s_challenge_id")
     # 谁解决了这个问题
     team_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="team_id")
-
-
-class File(models.Model):
-
-    name = models.CharField(max_length=200, blank=True, verbose_name="文件名称")
-    url = models.FileField(verbose_name="上传文件", null=True, upload_to='media')
-
-
-    def __str__(self):
-        return self.name
+    # 提交flag时间
+    created_time = models.DateTimeField(auto_now_add=True)

@@ -13,7 +13,7 @@
     <style>
         /* 导航栏字体颜色 */
         .navbar .nav > li > a{
-        color: #BBFFFF;    
+        color: rgb(83, 241, 241);    
         }
         /* 导航栏字体大小 */
         .nav-font{
@@ -84,12 +84,12 @@
                         <img class="img-logo img-circle" alt="Brand" src="{% static 'base/123.png' %}">
                     </a>
                     <a class="navbar-brand geek" href="{% url 'accounts:index' %}">
-                        Syclover Challenges
+                        Syc Geek 10th
                     </a>
                 </div>
                 <ul class="nav navbar-nav navbar-md-left">
                     <li class="">
-                        <a href="#" class="nav-font">
+                        <a href="{% url 'public:notifications' %}" class="nav-font">
                             <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
                             Notifications
                         </a>
@@ -107,7 +107,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="nav-font">
+                        <a href="{% url 'public:about' %}" class="nav-font">
                             <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
                             About
                         </a>
@@ -164,6 +164,13 @@
     <!-- 导航栏下拉菜单 -->
     <script>
         $('.dropdown-toggle').dropdown()
+    </script>
+    <!-- 出现动画 -->
+    <script src="{% static 'base/js/scrollReveal.js' %}"></script>
+    <script>
+        (function(){
+            window.scrollReveal = new scrollReveal({ reset: true, move: '50px'});
+        })();
     </script>
     {% block script %}
     

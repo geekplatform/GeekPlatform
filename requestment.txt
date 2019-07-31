@@ -1,2 +1,5 @@
 Django==2.1.5
-pymysql
+pymysql==0.9.3
+Django-mdeditor==0.1.
+Pygments==2.3.1
+markdown==3.1.1

@@ -8,8 +8,25 @@
     box-shadow:10px 5px 50px rgb(133, 124, 124);
 }
 .form div{
-    padding: 30px;
+    padding: 20px;
     position: relative;
-    top: 80px;	
+    top: -30px;	
     text-align: center;
+}
+.mess{
+    position: absolute;
+    top: 50px;
+}
+.info{
+    width: 70%;
+    position: relative;
+    top: -75px;
+    text-align: center;
+}
+.info-img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: auto;
+    margin-left: auto;
 }

@@ -38,7 +38,21 @@
 
 {% endblock body %}
 {% block script %}
-
+<script>
+    {% if register_form.errors %}
+        {% if register_form.errors.username %}
+                alert('用户已存在或格式错误');       
+        {% endif %}
+        
+        {% if register_form.errors.password1 or register_form.errors.password2 %}
+            {% if register_form.errors.password1 %}
+                alert('两次密码字段不一样或不符合要求');
+            {% else %}
+                alert('两次密码字段不一样或不符合要求');
+            {% endif %}       
+        {% endif %}
+    {% endif %}
+ </script>  
 {% endblock script %}
 <!-- <!DOCTYPE html>  
 <html lang="zh-hans">

@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'challenge',
-    'notice',
+    'public',
+    'mdeditor',
 ]
 
 MIDDLEWARE = [
@@ -125,5 +126,5 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = '/accounts/login/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR)
+MEDIA_ROOT = os.path.join(BASE_DIR,'media').replace("//","/")
 

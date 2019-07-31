@@ -1,0 +1,12 @@
+.regi{
+    background-color:rgb(255, 255, 255);
+    width:70%;
+    margin-top: 15px;
+    font: 1.5em sans-serif;
+    line-height: 40px;
+    position:relative;
+    top:200px;
+    border-radius:10px;
+    box-shadow:10px 5px 50px rgb(133, 124, 124);
+    text-align: center;
+}

@@ -24,7 +24,7 @@ def login(request):
         # 如果返回为none，帐号或密码错误，或用户不存在
         if team is None:
             # 携带错误提示重定向到登录页面
-            return render(request,'accounts/login.html',{'error':'用户bu存在'})
+            return render(request,'accounts/login.html',{'error':'用户名或密码错误'})
         # 验证成功，保持登录，并重定向到主页
         else:
             # 保持登录状态
@@ -36,6 +36,8 @@ def login(request):
         # 返回登录界面
         return render(request,'accounts/login.html')
 
+
+@login_required(login_url='accounts:login')
 # 登出逻辑
 def logout(request):
     # 直接登出

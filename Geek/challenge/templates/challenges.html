@@ -1,0 +1,608 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+scoreboard|Geek 10th
+{% endblock title %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'challenge/challenges/css/challenges.css' %}">
+<!-- <link rel="stylesheet" href="{% static 'challenge/scoreboard/css/scoreboard.css' %}"> -->
+{% endblock link %}
+
+{% block style %}
+
+
+{% endblock style %}
+
+{% block page_word %}{% endblock page_word %}
+
+{% block body %}
+<div class="reg container" 
+{% if wrong %}
+x="{{ wrong }}"
+style="border:2px solid #ac2925;"
+{% elif success %}
+x="{{ success }}"
+style="border:2px solid #dff0d8;"
+{% endif %}
+>
+    {% for tag in tags %}
+    <a class="span-c" href="#{{ tag }}" data-toggle="tab" data-scroll-reveal="enter bottom over 1s">
+        <span class="label  cir">{{ tag }}</span>
+    </a>
+    {% endfor %}
+</div>
+<!-- <div class="mess container btn-warning">
+    flag错误
+</div> -->
+<div class="container regi">
+    <div class="c-list tab-content">
+        {% for tag in tags %}
+        {% if tag.id == forloop.first %}
+        <div class="tab-pane active {{ tag.challenge_set.all }}" id="{{ tag }}" >
+        {% else %}
+        <div class="tab-pane fade {{ tag.challenge_set.all.len }}" id="{{ tag }}">
+        {% endif %}
+            <div class="c-line">
+            {% for challenge in tag.challenge_set.all %}
+                {% if forloop.counter <= 10 %}
+                    <div>
+                        <div class="slide" style="display: none;">
+                            <ul id="myTab" class="nav nav-tabs nav-bor">
+                                <li class="active">
+                                    <a href="#{{ tag }}z{{ challenge.id }}" data-toggle="tab" class="fir">
+                                        challenge{{ forloop.counter }}
+                                    </a>
+                                </li>
+                                {% if challenge.hints %}
+                                <li>
+                                    <a href="#{{ tag }}f{{ challenge.id }}" data-toggle="tab">hint</a>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane active" id="{{ tag }}z{{ challenge.id }}">
+                                    <div class="c-content">
+                                        <p><a href="">{{ challenge.author }}：</a>{{ challenge.content }}</p>
+                                    </div>
+                                    <div class="c-link">
+                                        地址:<a href="">{{ challenge.link }}</a>
+                                    </div>
+                                    <div class="flag-form">
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ challenge.id }}" name="challenge_id" />
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="input-group input-group-sm">
+                                                        <span class="input-group-addon" id="sizing-addon1">Flag</span>
+                                                        <input type="text" class="form-control" placeholder="Flag"
+                                                            aria-describedby="sizing-addon1" name="s_flag">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-default btn-c">提交</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="tab-pane fade" id="{{ tag }}f{{ challenge.id }}">
+                                    <p>hint-content</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="handle" id="one" {% if challenge.title in has_solved_title %}
+                            style="background-color: #dff0d8" {% endif %}>
+                            <p class="rotate">{{ challenge.title }}</p>
+
+                            {% if challenge.title in has_solved_title %}
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            {% endif %}
+
+                            {% if challenge.hints %}
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                            {% endif %}
+                            <p class="score">{{ challenge.value }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+
+            
+            {% for challenge in tag.challenge_set.all %}
+                {% if 11 == forloop.counter %}
+                <div class="c-line">
+                {% endif %}
+            {% endfor %}
+            {% for challenge in tag.challenge_set.all %}
+                {% if 10 < forloop.counter %}
+                    {% if forloop.counter <= 20 %}
+                    <div>
+                        <div class="slide" style="display: none;">
+                            <ul id="myTab" class="nav nav-tabs nav-bor">
+                                <li class="active">
+                                    <a href="#{{ tag }}z{{ challenge.id }}" data-toggle="tab" class="fir">
+                                        challenge{{ forloop.counter }}
+                                    </a>
+                                </li>
+                                {% if challenge.hints %}
+                                <li>
+                                    <a href="#{{ tag }}f{{ challenge.id }}" data-toggle="tab">hint</a>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane active" id="{{ tag }}z{{ challenge.id }}">
+                                    <div class="c-content">
+                                        <p><a href="">{{ challenge.author }}：</a>{{ challenge.content }}</p>
+                                    </div>
+                                    <div class="c-link">
+                                        地址:<a href="">{{ challenge.link }}</a>
+                                    </div>
+                                    <div class="flag-form">
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ challenge.id }}" name="challenge_id" />
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="input-group input-group-sm">
+                                                        <span class="input-group-addon" id="sizing-addon1">Flag</span>
+                                                        <input type="text" class="form-control" placeholder="Flag"
+                                                            aria-describedby="sizing-addon1" name="s_flag">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-default btn-c">提交</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="tab-pane fade" id="{{ tag }}f{{ challenge.id }}">
+                                    <p>hint-content</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="handle" id="one" {% if challenge.title in has_solved_title %}
+                            style="background-color: #dff0d8" {% endif %}>
+                            <p class="rotate">{{ challenge.title }}</p>
+
+                            {% if challenge.title in has_solved_title %}
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            {% endif %}
+
+                            {% if challenge.hints %}
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                            {% endif %}
+                            <p class="score">{{ challenge.value }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}       
+            {% endfor %}
+            {% for challenge in tag.challenge_set.all %}
+                {% if 10 < forloop.counter %}
+                    {% if forloop.counter <= 20 %}
+                        {% if forloop.last %}
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                {% elif forloop.counter == 20 %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            
+
+            {% for challenge in tag.challenge_set.all %}
+                {% if 21 == forloop.counter %}
+                <div class="c-line">
+                {% endif %}
+            {% endfor %}
+            {% for challenge in tag.challenge_set.all %}
+                {% if 20 < forloop.counter %}
+                    {% if forloop.counter <= 30 %}
+                    <div>
+                        <div class="slide" style="display: none;">
+                            <ul id="myTab" class="nav nav-tabs nav-bor">
+                                <li class="active">
+                                    <a href="#{{ tag }}z{{ challenge.id }}" data-toggle="tab" class="fir">
+                                        challenge{{ forloop.counter }}
+                                    </a>
+                                </li>
+                                {% if challenge.hints %}
+                                <li>
+                                    <a href="#{{ tag }}f{{ challenge.id }}" data-toggle="tab">hint</a>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane active" id="{{ tag }}z{{ challenge.id }}">
+                                    <div class="c-content">
+                                        <p><a href="">{{ challenge.author }}：</a>{{ challenge.content }}</p>
+                                    </div>
+                                    <div class="c-link">
+                                        地址:<a href="">{{ challenge.link }}</a>
+                                    </div>
+                                    <div class="flag-form">
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ challenge.id }}" name="challenge_id" />
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="input-group input-group-sm">
+                                                        <span class="input-group-addon" id="sizing-addon1">Flag</span>
+                                                        <input type="text" class="form-control" placeholder="Flag"
+                                                            aria-describedby="sizing-addon1" name="s_flag">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-default btn-c">提交</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="tab-pane fade" id="{{ tag }}f{{ challenge.id }}">
+                                    <p>hint-content</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="handle" id="one" {% if challenge.title in has_solved_title %}
+                            style="background-color: #dff0d8" {% endif %}>
+                            <p class="rotate">{{ challenge.title }}</p>
+
+                            {% if challenge.title in has_solved_title %}
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            {% endif %}
+
+                            {% if challenge.hints %}
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                            {% endif %}
+                            <p class="score">{{ challenge.value }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}       
+            {% endfor %}
+            {% for challenge in tag.challenge_set.all %}
+                {% if 20 < forloop.counter %}
+                    {% if forloop.counter <= 30 %}
+                            {% if forloop.last %}
+                            </div>
+                            {% endif %}
+                    {% endif %}
+                {% elif forloop.counter == 30 %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+
+            {% for challenge in tag.challenge_set.all %}
+                {% if 31 == forloop.counter %}
+                <div class="c-line">
+                {% endif %}
+            {% endfor %}
+            {% for challenge in tag.challenge_set.all %}
+                {% if 30 < forloop.counter %}
+                    {% if forloop.counter <= 40 %}
+                    <div>
+                        <div class="slide" style="display: none;">
+                            <ul id="myTab" class="nav nav-tabs nav-bor">
+                                <li class="active">
+                                    <a href="#{{ tag }}z{{ challenge.id }}" data-toggle="tab" class="fir">
+                                        challenge{{ forloop.counter }}
+                                    </a>
+                                </li>
+                                {% if challenge.hints %}
+                                <li>
+                                    <a href="#{{ tag }}f{{ challenge.id }}" data-toggle="tab">hint</a>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane active" id="{{ tag }}z{{ challenge.id }}">
+                                    <div class="c-content">
+                                        <p><a href="">{{ challenge.author }}：</a>{{ challenge.content }}</p>
+                                    </div>
+                                    <div class="c-link">
+                                        地址:<a href="">{{ challenge.link }}</a>
+                                    </div>
+                                    <div class="flag-form">
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ challenge.id }}" name="challenge_id" />
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="input-group input-group-sm">
+                                                        <span class="input-group-addon" id="sizing-addon1">Flag</span>
+                                                        <input type="text" class="form-control" placeholder="Flag"
+                                                            aria-describedby="sizing-addon1" name="s_flag">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-default btn-c">提交</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="tab-pane fade" id="{{ tag }}f{{ challenge.id }}">
+                                    <p>hint-content</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="handle" id="one" {% if challenge.title in has_solved_title %}
+                            style="background-color: #dff0d8" {% endif %}>
+                            <p class="rotate">{{ challenge.title }}</p>
+
+                            {% if challenge.title in has_solved_title %}
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            {% endif %}
+
+                            {% if challenge.hints %}
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                            {% endif %}
+                            <p class="score">{{ challenge.value }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}       
+            {% endfor %}
+            {% for challenge in tag.challenge_set.all %}
+                {% if 30 < forloop.counter %}
+                    {% if forloop.counter <= 40 %}
+                            {% if forloop.last %}
+                            </div>
+                            {% endif %}
+                    {% endif %}
+                {% elif forloop.counter == 40 %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            
+
+            {% for challenge in tag.challenge_set.all %}
+                {% if 41 == forloop.counter %}
+                <div class="c-line">
+                {% endif %}
+            {% endfor %}
+            {% for challenge in tag.challenge_set.all %}
+                {% if 40 < forloop.counter %}
+                    {% if forloop.counter <= 50 %}
+                    <div>
+                        <div class="slide" style="display: none;">
+                            <ul id="myTab" class="nav nav-tabs nav-bor">
+                                <li class="active">
+                                    <a href="#{{ tag }}z{{ challenge.id }}" data-toggle="tab" class="fir">
+                                        challenge{{ forloop.counter }}
+                                    </a>
+                                </li>
+                                {% if challenge.hints %}
+                                <li>
+                                    <a href="#{{ tag }}f{{ challenge.id }}" data-toggle="tab">hint</a>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane active" id="{{ tag }}z{{ challenge.id }}">
+                                    <div class="c-content">
+                                        <p><a href="">{{ challenge.author }}：</a>{{ challenge.content }}</p>
+                                    </div>
+                                    <div class="c-link">
+                                        地址:<a href="">{{ challenge.link }}</a>
+                                    </div>
+                                    <div class="flag-form">
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ challenge.id }}" name="challenge_id" />
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="input-group input-group-sm">
+                                                        <span class="input-group-addon" id="sizing-addon1">Flag</span>
+                                                        <input type="text" class="form-control" placeholder="Flag"
+                                                            aria-describedby="sizing-addon1" name="s_flag">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-default btn-c">提交</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="tab-pane fade" id="{{ tag }}f{{ challenge.id }}">
+                                    <p>hint-content</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="handle" id="one" {% if challenge.title in has_solved_title %}
+                            style="background-color: #dff0d8" {% endif %}>
+                            <p class="rotate">{{ challenge.title }}</p>
+
+                            {% if challenge.title in has_solved_title %}
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            {% endif %}
+
+                            {% if challenge.hints %}
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                            {% endif %}
+                            <p class="score">{{ challenge.value }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}       
+            {% endfor %}
+            {% for challenge in tag.challenge_set.all %}
+                {% if 40 < forloop.counter %}
+                    {% if forloop.counter <= 50 %}
+                            {% if forloop.last %}
+                            </div>
+                            {% endif %}
+                    {% endif %}
+                {% elif forloop.counter == 50 %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+
+            {% for challenge in tag.challenge_set.all %}
+                {% if 51 == forloop.counter %}
+                <div class="c-line">
+                {% endif %}
+            {% endfor %}
+            {% for challenge in tag.challenge_set.all %}
+                {% if 50 < forloop.counter %}
+                    {% if forloop.counter <= 60 %}
+                    <div>
+                        <div class="slide" style="display: none;">
+                            <ul id="myTab" class="nav nav-tabs nav-bor">
+                                <li class="active">
+                                    <a href="#{{ tag }}z{{ challenge.id }}" data-toggle="tab" class="fir">
+                                        challenge{{ forloop.counter }}
+                                    </a>
+                                </li>
+                                {% if challenge.hints %}
+                                <li>
+                                    <a href="#{{ tag }}f{{ challenge.id }}" data-toggle="tab">hint</a>
+                                </li>
+                                {% endif %}
+
+                            </ul>
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane active" id="{{ tag }}z{{ challenge.id }}">
+                                    <div class="c-content">
+                                        <p><a href="">{{ challenge.author }}：</a>{{ challenge.content }}</p>
+                                    </div>
+                                    <div class="c-link">
+                                        地址:<a href="">{{ challenge.link }}</a>
+                                    </div>
+                                    <div class="flag-form">
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{ challenge.id }}" name="challenge_id" />
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <div class="input-group input-group-sm">
+                                                        <span class="input-group-addon" id="sizing-addon1">Flag</span>
+                                                        <input type="text" class="form-control" placeholder="Flag"
+                                                            aria-describedby="sizing-addon1" name="s_flag">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <button type="submit"
+                                                        class="btn btn-sm btn-default btn-c">提交</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="tab-pane fade" id="{{ tag }}f{{ challenge.id }}">
+                                    <p>hint-content</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="handle" id="one" {% if challenge.title in has_solved_title %}
+                            style="background-color: #dff0d8" {% endif %}>
+                            <p class="rotate">{{ challenge.title }}</p>
+
+                            {% if challenge.title in has_solved_title %}
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            {% else %}
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            {% endif %}
+
+                            {% if challenge.hints %}
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                            {% endif %}
+                            <p class="score">{{ challenge.value }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}       
+            {% endfor %}
+            {% for challenge in tag.challenge_set.all %}
+                {% if 50 < forloop.counter %}
+                    {% if forloop.counter <= 60 %}
+                            {% if forloop.last %}
+                            </div>
+                            {% endif %}
+                    {% endif %}
+                {% elif forloop.counter == 60 %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+
+        
+        </div>
+        {% endfor %}
+
+        </div>
+
+        {% endblock body %}
+
+        {% block script %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".handle").click(function () {
+                    if (!$(this).siblings(".slide").is(":visible")) {
+                        $(this).addClass("select");
+                        $(this).siblings(".slide").animate({ width: "show" }, 300);
+                        $(this).parent().siblings().children(".slide").animate({ width: "hide" }, 300);
+                        $(this).parent().siblings().children(".handle").removeClass("select");
+                    } else {
+                        $(this).siblings(".slide").animate({ width: "hide" }, 300);
+                        $(this).removeClass("select");
+                    }
+                });
+
+            });
+        </script>
+        {% endblock script %}

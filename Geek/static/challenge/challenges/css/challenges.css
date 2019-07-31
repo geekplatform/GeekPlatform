@@ -1,0 +1,194 @@
+/* 分类div的样式 */
+.reg{
+    background-color:rgb(255, 255, 255);
+    width: 70%;
+    height: 50px;
+    position:relative;
+    top: 200px;
+    border-radius: 10px;
+    box-shadow: 10px 5px 50px rgb(133, 124, 124);
+    text-align: center;
+    line-height: center;
+    float:center;
+    line-height:50px;
+    margin-bottom: 10px;
+    
+}
+/* span的样式 */
+.cir{
+    font-size:20px;
+    box-shadow:1px 1px 5px 1px #DCDCDC;
+    margin:5px;
+    border:none;
+    display:-moz-inline-box;
+    display:inline-block;
+    color:#BC8F8F;
+    text-align: center;
+}
+    /* span的位置 */
+.span-c{
+    position: relative;
+    top: 2px;
+    line-height: 10px;
+}
+    /* 去吊下划线 */
+a{
+    text-decoration:none;
+}
+    /* 鼠标滑过span颜色 */
+.span-c:hover span{
+    color:#FFFAFA;
+    background-color:#5cb85c
+}
+.mess{
+    background-color:rgb(255, 255, 255);
+    width: 70%;
+    height: 40px;
+    position:relative;
+    top: 200px;
+    border-radius: 10px;
+    box-shadow: 10px 5px 50px rgb(133, 124, 124);
+    text-align: center;
+    /* line-height:40px; */
+    font: 1.5em sans-serif;
+}  
+.regi{
+    background-color:rgb(255, 255, 255);
+    width: 70%;
+    position:relative;
+    top: 210px;
+    border-radius: 10px;
+    box-shadow: 10px 5px 50px rgb(133, 124, 124);
+    text-align: center;
+    line-height: center;
+    float:center;
+}
+/* 题目列表div */
+.c-list {
+    margin: 10px auto;
+}
+/* 题目信息框 */
+.slide {
+    background-color: #f1f4f4;
+    float: left;
+    width: 380px;
+    height: 250px;
+    display: none;
+    margin: 0 4px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -o-border-radius: 25px;
+    border-radius: 25px ;
+    behavior: url(PIE.htc)
+}
+/* 题目标题框 */
+.handle {
+    float: left;
+    margin: 0px 2px 20px 2px;
+    width: 50px;
+    height: 250px;
+    cursor: pointer;
+    background: #909090;
+    
+    text-align: center;
+    color: #FFF;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -o-border-radius: 25px;
+    border-radius: 25px;
+    -webkit-transition: 0.3s ease-in-out;
+    -moz-transition: 0.3s ease-in-out;
+    -o-transition: 0.3s ease-in-out;
+    -ms-transition: 0.3s ease-in-out;
+    behavior: url(PIE.htc)
+}
+/* 标题框 */
+.handle p {
+    
+    width: 100px;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    behavior: url(PIE.htc)
+}
+/* 标题框题目名字 */
+.handle .rotate{
+    margin: 50px -24px;
+    font: bold 10px Arial, Helvetica, sans-serif;
+}
+/* 标题框题目分数 */
+.handle .score{
+    position: relative;
+    /* top: 60px; */
+    margin: 40px -24px;
+    font: bold 20px Arial, Helvetica, sans-serif;
+}
+/* 题目小分类标题栏 */
+.nav-tabs>li.active>.fir, 
+.nav-tabs>li.active>.fir:focus, 
+.nav-tabs>li.active>.fir:hover{
+    border-radius: 23px 0 0 0;
+}
+.nav>li>.fir:hover{
+    border-radius: 23px 0 0 0;
+}
+.handle:hover {
+    background: #2d2d2d;
+    -webkit-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    behavior: url(PIE.htc)
+}
+/* 标题框被选择时颜色 */
+.select {
+    background: #2d2d2d;
+}
+
+/* 提交flag框 */
+.flag-form{
+    /* padding: 10px; */
+    width: 380px;
+    height: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    position: relative;
+    top: 85px;
+}
+/* 提交flag框按钮 */
+.flag-form button{
+    float: left;
+    position: relative;
+    right: 15px;
+}
+/* 提交按钮颜色 */
+.btn-c{
+    background-color: #eee;
+}
+
+/* 题目描述 */
+.c-content{
+    height: 30px;
+    position: relative;
+    top:10px;
+}
+/* 题目链接 */
+.c-link{
+    width: 380px;
+    height: 50px;
+    text-align: left;
+    position: relative;
+    top: 100px;
+}
+.c-link a{
+    word-wrap:break-word;
+}
+.c-line{
+    /* background-color: #2d2d2d; */
+    width: 100%;
+    height: 270px;
+    position: relative;
+    top:20px;
+    margin-top: 20px;
+}

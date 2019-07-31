@@ -1,0 +1,30 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}
+    Login|Geek 10th
+{% endblock title %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static 'public/notice/css/notifications.css' %}">
+{% endblock link %}
+
+{% block style %}
+       
+{% endblock style %}
+
+{% block page_word %}{% endblock page_word %}
+
+{% block body %}
+        {% for notice in notifications %}
+        <div class="container regi" data-scroll-reveal="enter bottom over 2s">
+            {{ notice.content }}
+        </div>
+        {% endfor %}
+   
+{% endblock body %}
+
+{% block script %}
+    
+{% endblock script %}
+

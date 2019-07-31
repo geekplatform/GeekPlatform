@@ -2,61 +2,53 @@
 {% load static %}
 
 {% block title %}
-    Login|Geek 10th
+Login|Geek 10th
 {% endblock title %}
 
 {% block link %}
-    <link rel="stylesheet" href="{% static 'accounts/login/css/login.css' %}">
+<link rel="stylesheet" href="{% static 'accounts/login/css/login.css' %}">
 {% endblock link %}
 
 {% block style %}
-       
+
 {% endblock style %}
 
 {% block page_word %}{% endblock page_word %}
 
 {% block body %}
-    <div class="container regi">
-        <form action="" method="post" class="form">
-            {% csrf_token %}
-            <div class="input-group input-group-lg">
-                <span class="input-group-addon" id="sizing-addon1">用户名</span>
-                <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" name="teamname">
-            </div>
-            <div class="input-group input-group-lg">
-                <span class="input-group-addon" id="sizing-addon1">密码</span>
-                <input type="password" class="form-control" placeholder="password" aria-describedby="sizing-addon1" name="password">
-            </div>
-            <div>
-                <button class="btn btn-info btn-block btn-lg" type="submit">登录</button>
-            </div>
-            <div>
-                还没有帐号？<a href="{% url 'accounts:register' %}">注册</a>
-            </div>
-            
-        </form>
+<div class="container regi">
+    <div class="container info">
+        <div class="info-img" style="background:url({% static 'base/syc.jpg' %}) no-repeat center center;"></div>
     </div>
+    <form action="" method="post" class="form">
+        {% csrf_token %}
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">用户名</span>
+            <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1"
+                name="teamname">
+        </div>
+        <div class="input-group input-group-lg">
+            <span class="input-group-addon" id="sizing-addon1">密码</span>
+            <input type="password" class="form-control" placeholder="password" aria-describedby="sizing-addon1"
+                name="password">
+        </div>
+        <div>
+            <button class="btn btn-info btn-block btn-lg" type="submit">登录</button>
+        </div>
+        <div>
+            还没有帐号？<a href="{% url 'accounts:register' %}">注册</a>
+        </div>
+    </form>
+</div>
 
 {% endblock body %}
 
 {% block script %}
-    
+<script>
+{% if error %}
+
+    alert('{{ error }}');
+
+{% endif %}
+</script>
 {% endblock script %}
-<!-- <!DOCTYPE html>
-<html lang="zh-hans">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ error }}
-        <input type="text" name="teamname" placeholder="队伍名">
-        <input type="password" name="password" placeholder="密码">
-        <button type="submit">登录</button>
-    </form>
-</body>
-</html> -->

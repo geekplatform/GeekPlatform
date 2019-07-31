@@ -16,12 +16,12 @@
 {% block page_word %}{% endblock page_word %}
 
 {% block body %}
-    <div class="container regi">
-        <a class="span-c" href="{% url 'challenge:rank' %}">
+    <div class="container regi" >
+        <a class="span-c" href="{% url 'challenge:rank' %}" data-scroll-reveal="enter bottom over 1s">
             <span class="label  cir">All</span>
         </a>
         {% for tag in tags %}
-             <a class="span-c" href="/challenge/scoreboard/1/{{ tag.id }}">
+             <a class="span-c" href="/challenge/scoreboard/1/{{ tag.id }}" data-scroll-reveal="enter bottom over 1s">
             <span class="label  cir">{{ tag }}</span>
             </a>
         {% endfor %}
