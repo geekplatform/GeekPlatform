@@ -16,11 +16,29 @@
 {% block page_word %}{% endblock page_word %}
 
 {% block body %}
-        {% for notice in notifications %}
+        {% comment %} {% for notice in notifications %}
         <div class="container regi" data-scroll-reveal="enter bottom over 2s">
             {{ notice.content }}
         </div>
-        {% endfor %}
+        {% endfor %} {% endcomment %}
+        <div class="container regi">
+            <div class="header">
+                <h2>Announcements</h2>
+            </div>
+            {% for notice in notifications %}
+            <hr class="myhr">
+
+            <div class="card container">
+                <div class="card-time">
+                    {{ notice.Create_time|date:"Y-m-d H:i" }}
+                </div>
+
+                <div class="card-body container">
+                    {{ notice.content }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
    
 {% endblock body %}
 

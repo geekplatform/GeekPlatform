@@ -24,8 +24,8 @@ def about(request):
 def notifications(request):
 
     notice = Notice.objects.all().order_by('-Create_time')
-    print(notice)
 
     context = { 'notifications': notice }
 
     return render(request, 'notifications.html', context)
+

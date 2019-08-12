@@ -14,8 +14,12 @@ class Category(models.Model):
 
 
 class Author(models.Model):
+    # 出提人头像
+    header_img = models.ImageField(verbose_name='出题人头像')
     # 出题人
     name = models.CharField(max_length=20, verbose_name="出题人")
+    # 出题人QQ
+    QQ = models.TextField(blank=True, null=True)
 
     def __str__(self): return self.name
 

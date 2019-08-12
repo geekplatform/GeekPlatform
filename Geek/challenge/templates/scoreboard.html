@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block title %}
-    scoreboard|Geek 10th
+scoreboard|Geek 10th
 {% endblock title %}
 
 {% block link %}
-    <link rel="stylesheet" href="{% static 'challenge/scoreboard/css/scoreboard.css' %}">
+<link rel="stylesheet" href="{% static 'challenge/scoreboard/css/scoreboard.css' %}">
 {% endblock link %}
 
 {% block style %}
@@ -16,42 +16,50 @@
 {% block page_word %}{% endblock page_word %}
 
 {% block body %}
-    <div class="container regi" >
-        <a class="span-c" href="{% url 'challenge:rank' %}" data-scroll-reveal="enter bottom over 1s">
-            <span class="label  cir">All</span>
-        </a>
-        {% for tag in tags %}
-             <a class="span-c" href="/challenge/scoreboard/1/{{ tag.id }}" data-scroll-reveal="enter bottom over 1s">
-            <span class="label  cir">{{ tag }}</span>
-            </a>
-        {% endfor %}
-       
-    </div>
-    <div class="container rank">
-        <table class="table table-hover">
-            <thead>
-                <tr class="tal-w">
-                    <th>Rank</th>
-                    <th>Team</th>
-                    <th>score</th>
-                </tr>
-            </thead>
-            <tbody>
+<div class="container regi">
+    <a class="span-c" href="{% url 'challenge:rank' %}" data-scroll-reveal="enter bottom over 1s">
+        <span class="label  cir">All</span>
+    </a>
+    {% for tag in tags %}
+    <a class="span-c" href="/challenge/scoreboard/1/{{ tag.id }}" data-scroll-reveal="enter bottom over 1s">
+        <span class="label  cir">{{ tag }}</span>
+    </a>
+    {% endfor %}
+
+</div>
+<div class="container rank">
+    <table class="table table-hover">
+        <thead>
+            <tr class="tal-w">
+                <th>Rank</th>
+                <th>Team</th>
+                <!-- <th>Solved</th> -->
+                <th>score</th>
+            </tr>
+        </thead>
+        <tbody>
             {% for index,result in results %}
-            
-                <tr>
-                    <th scope="row">{{ index|add:1 }}</th>
-                    <td><a href="/challenge/info/{{result.id}}">{{result.teamname}}</a></td> 
-                    <td>{{result.score}}</td>
-                </tr>
-    
+
+            <tr>
+                <th scope="row">{{ index|add:1 }}</th>
+                <td><a href="/challenge/info/{{result.id}}">{{result.teamname}}</a></td>
+                <!-- <td>
+                    <span class="" title="java反序列化">
+                        <a href="#">
+                            <img src="{% static 'base/unsolved.png' %}" alt="">
+                        </a>
+                    </span>
+                </td> -->
+                <td>{{result.score}}</td>
+            </tr>
+
             {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
+</div>
 
 {% endblock body %}
 
 {% block script %}
-    
+
 {% endblock script %}

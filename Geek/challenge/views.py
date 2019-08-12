@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Challenge, Solve, Category
+from .models import Challenge, Solve, Category, Author
 from django.contrib.auth.decorators import login_required
 from accounts.models import Teams
 from django.db.models import Sum, Max, Count
@@ -180,3 +180,10 @@ def wrong(request):
 @login_required(login_url='accounts:login')
 def success(request):
     return render(request,'success.html')
+
+
+def author(request):
+    content = {}
+    authors = Author.objects.all()
+    content['authors'] = authors
+    return render(request,'author.html',content)

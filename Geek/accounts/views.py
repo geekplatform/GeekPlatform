@@ -30,7 +30,7 @@ def login(request):
             # 保持登录状态
             auth_login(request,team)
             # 重定向到主页
-            return redirect('accounts:index')
+            return redirect('public:about')
     # 如果为GET请求
     else:
         # 返回登录界面
@@ -43,7 +43,7 @@ def logout(request):
     # 直接登出
     auth_logout(request)
     # 重定向到主页
-    return redirect('accounts:index')
+    return redirect('public:about')
 
 
 # 注册逻辑
@@ -65,7 +65,7 @@ def register(request):
             # 注册完成，保持用户登录
             auth_login(request,new_team)
             # 重定向到主页
-            return redirect('accounts:index')
+            return redirect('public:about')
     # 不是POST请求得到填写表单
     else:        
         register_form = UserCreationForm()

@@ -65,10 +65,10 @@ style="border:2px solid #dff0d8;"
                             <div id="myTabContent" class="tab-content">
                                 <div class="tab-pane active" id="{{ tag }}z{{ challenge.id }}">
                                     <div class="c-content">
-                                        <p><a href="">{{ challenge.author }}：</a>{{ challenge.content }}</p>
+                                        <p><a href="{% url 'challenge:author' %}">{{ challenge.author }}：</a>{{ challenge.content }}</p>
                                     </div>
                                     <div class="c-link">
-                                        地址:<a href="">{{ challenge.link }}</a>
+                                        地址:<a href="{{ challenge.link }}">{{ challenge.link }}</a>
                                     </div>
                                     <div class="flag-form">
                                         <form action="" method="POST">
@@ -100,7 +100,7 @@ style="border:2px solid #dff0d8;"
                         </div>
 
                         <div class="handle" id="one" {% if challenge.title in has_solved_title %}
-                            style="background-color: #dff0d8" {% endif %}>
+                            style="background-color: rgb(190, 255, 190);" {% endif %}>
                             <p class="rotate">{{ challenge.title }}</p>
 
                             {% if challenge.title in has_solved_title %}
@@ -225,7 +225,7 @@ style="border:2px solid #dff0d8;"
                             <ul id="myTab" class="nav nav-tabs nav-bor">
                                 <li class="active">
                                     <a href="#{{ tag }}z{{ challenge.id }}" data-toggle="tab" class="fir">
-                                        challenge{{ forloop.counter }}
+                                        challenge
                                     </a>
                                 </li>
                                 {% if challenge.hints %}
@@ -241,7 +241,7 @@ style="border:2px solid #dff0d8;"
                                         <p><a href="">{{ challenge.author }}：</a>{{ challenge.content }}</p>
                                     </div>
                                     <div class="c-link">
-                                        地址:<a href="">{{ challenge.link }}</a>
+                                        地址:<a href='{{ challenge.link }}'>{{ challenge.link }}</a>
                                     </div>
                                     <div class="flag-form">
                                         <form action="" method="POST">
@@ -277,7 +277,7 @@ style="border:2px solid #dff0d8;"
                             <p class="rotate">{{ challenge.title }}</p>
 
                             {% if challenge.title in has_solved_title %}
-                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true" style="color:red;"></span>
                             {% else %}
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                             {% endif %}

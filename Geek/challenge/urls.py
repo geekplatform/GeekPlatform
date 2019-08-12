@@ -11,5 +11,6 @@ urlpatterns = [
     path(r'challenge/scoreboard/',views.rank,name='rank'),
     path(r'challenge/wrong',views.wrong,name='wrong'),
     path(r'challenge/success',views.success,name='success'),
+    path(r'challenge/author',views.author,name='author'),
 
 ]

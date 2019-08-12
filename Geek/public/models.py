@@ -10,6 +10,9 @@ class Notice(models.Model):
     # 创建时间
     Create_time =  models.DateTimeField(verbose_name="创建时间")
 
+    def __str__(self):
+        return self.Create_time
+
 
 class Introduce(models.Model):
     # 标题
