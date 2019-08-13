@@ -21,6 +21,25 @@ Login|Geek 10th
             <div class="info-img" style="background:url({% static 'base/123.png' %}) no-repeat center center;"></div>
             <h2>{{ teamname }}</h2>
     </div>
+    <div class="container">
+        {% for name in all %}
+            {% if name.title in all_solved_challenge_name %}
+            <span class="" title="{{ name.title }}-{{ name.category }}">
+                <a href="#">
+                    <img src="{% static 'base/solved.png' %}" alt="">
+                </a>
+            </span>
+            {% else %}
+            <span class="" title="{{ name.title }}-{{ name.category }}">
+                <a href="#">
+                    <img src="{% static 'base/unsolved.png' %}" alt="">
+                </a>
+            </span>
+            {% endif %}
+        
+        {% endfor %}
+        
+    </div>
     
     <div class="row">
         <div class="col-md-6">

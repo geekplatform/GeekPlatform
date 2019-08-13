@@ -65,7 +65,7 @@ def register(request):
             # 注册完成，保持用户登录
             auth_login(request,new_team)
             # 重定向到主页
-            return redirect('public:about')
+            return redirect('accounts:change_information')
     # 不是POST请求得到填写表单
     else:        
         register_form = UserCreationForm()
