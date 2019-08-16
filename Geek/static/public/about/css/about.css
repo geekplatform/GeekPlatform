@@ -12,9 +12,18 @@
     font: 2em sans-serif;
     margin-top: 10px;
 }
+.i-content{
+    /* text-align: center; */
+}
 .md-img ul li ul li img,
 .md-img ul li p img,
 .md-img ul li img,
 .md-img p img{
     max-width:100%;
+}
+.e-img{
+    text-align: center;
+}
+.e-img img{
+    padding: 20px 100px;
 }
