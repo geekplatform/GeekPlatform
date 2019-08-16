@@ -11,7 +11,7 @@ class Notice(models.Model):
     Create_time =  models.DateTimeField(verbose_name="创建时间")
 
     def __str__(self):
-        return self.Create_time
+        return str(self.Create_time)
 
 
 class Introduce(models.Model):
