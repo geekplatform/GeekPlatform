@@ -179,7 +179,7 @@
 			targets: this.DOM.img,
 			duration: 500,
 			easing: 'easeOutExpo',
-			scale: 0.3
+			scale: 1
 		});
 
 		anime({
