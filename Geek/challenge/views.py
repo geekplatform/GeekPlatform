@@ -3,46 +3,57 @@ from .models import Challenge, Solve, Category, Author
 from django.contrib.auth.decorators import login_required
 from accounts.models import Teams
 from django.db.models import Sum, Max, Count
-from django.db import connection
+from django.db import connection,transaction
 from .forms import SubmitForms
 from django.contrib.auth.models import User
+
+
 
 # Create your views here.
 SECRET = 123456789
 
-cursor = connection.cursor()
+
+
+@transaction.atomic
+def check(uid,challenge_id):
+    # 已经提交过了
+    try:
+        Solve.objects.select_for_update().get(challenge_id_id=challenge_id, team_id_id=uid)
+        return False
+    # 没提交过 添加
+    except Solve.DoesNotExist:
+        Solve.objects.create(challenge_id_id=challenge_id, team_id_id=uid)
+        return True
 
 
 @login_required
 def index(request):
 
     pk = request.user.id
-    team_name = get_object_or_404(User, pk=pk)
     has_solved = {}
     has_solved_title = []
-    sql = "select challenge_challenge.title from challenge_solve join challenge_challenge on challenge_solve.challenge_id_id= challenge_challenge.id where team_id_id=%s"
-    cursor.execute(sql, pk)
-    has_solved = [dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()]
-    for i in has_solved:
-        has_solved_title.append(i['title'])
+    sql = "SELECT challenge_challenge.title FROM challenge_solve JOIN challenge_challenge ON challenge_solve.challenge_id_id= challenge_challenge.id WHERE team_id_id=%s"
+    has_solved = sql_commit(sql, pk)
+    for (index, title) in has_solved:
+        has_solved_title.append(title['title'])
 
     tags = Category.objects.all()
-    challenge_list = Challenge.objects.all().order_by('-created_time')
     current_user = request.user
-
     if request.method == "POST":
         form = SubmitForms(request.POST)
+        challenge_id = request.POST.get('challenge_id')
+        if not len(challenge_id) == 0:
+            challenge_id=int(challenge_id)
+        else:
+            return redirect('id_flag_wrong.html')
         if form.is_valid():
-            id = request.POST.get('challenge_id')
             flag = form.cleaned_data['s_flag']
-            query = Challenge.objects.filter(id=id)
+            query = Challenge.objects.filter(id=challenge_id)
             if len(query) == 1:
                 if query[0].flag == flag:
                     # 如果没有提交过就在数据库中添加
-                    if not Solve.objects.filter(challenge_id_id=id, team_id_id=current_user.id):
-                        Solve.objects.create(challenge_id_id=id, team_id_id=current_user.id)
-                        
-                    return redirect('challenge:success')
+                    if check(current_user.id,challenge_id):
+                        return redirect('challenge:success')
                     # success = {"success":'Flag正确'}
                     # sql = "select challenge_challenge.title from challenge_solve join challenge_challenge on challenge_solve.challenge_id_id= challenge_challenge.id where team_id_id=%s"
                     # cursor.execute(sql, pk)
@@ -154,21 +165,19 @@ def scoreboard(request, secret, category):
     # 开始查数据 看所有
     if category == 0 and freshman == 0:
         sql = "SELECT team_id_id AS id, MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id  GROUP BY team_id_id ORDER BY score DESC ;"
-        cursor.execute(sql)
+        results =sql_commit(sql)
     # 看所有分类+大一
     elif category == 1 and freshman == 1:
         sql = "SELECT team_id_id AS id,MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id JOIN accounts_teams ON  accounts_teams.team_id=challenge_solve.team_id_id WHERE   accounts_teams.is_freshman= 1  GROUP BY team_id_id ORDER BY score DESC ;"
-        cursor.execute(sql)
+        results =sql_commit(sql)
     # 看指定分类+所有人
     elif category != 0 and freshman == 0:
         sql = "SELECT team_id_id AS id,MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id WHERE challenge_challenge.category_id=%s GROUP BY team_id_id ORDER BY score DESC ;"
-        cursor.execute(sql, category)
+        results =sql_commit(sql,category)
     # 看所有分类+大一
     elif category != 0 and freshman == 1:
         sql = "SELECT team_id_id AS id,MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id JOIN accounts_teams ON  accounts_teams.team_id=challenge_solve.team_id_id WHERE challenge_challenge.category_id=%s AND accounts_teams.is_freshman= 1  GROUP BY team_id_id ORDER BY score DESC ;"
-        cursor.execute(sql, category)
-    
-    results = enumerate([dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()])
+        results = sql_commit(sql,category)
     # 题目分类
     tags = Category.objects.all()
     
@@ -177,8 +186,7 @@ def scoreboard(request, secret, category):
 
 def rank(request):
     sql = "SELECT team_id_id AS id, MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id  GROUP BY team_id_id ORDER BY score DESC ;"
-    cursor.execute(sql)
-    results = enumerate([dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()])
+    results= sql_commit(sql)
     # 题目所有分类
     tags = Category.objects.all()
     return render(request, 'scoreboard.html', context={'results': results,'tags': tags})
@@ -201,3 +209,15 @@ def author(request):
     authors = Author.objects.all()
     content['authors'] = authors
     return render(request,'author.html',content)
+
+def sql_commit(sql,*args):
+
+    cursor = connection.cursor()
+    try:
+        cursor.execute(sql,*args)
+        return enumerate([dict(zip([col[0] for col in cursor.description], row)) for row in cursor.fetchall()])
+    except Exception as e:
+        connection.close()
+
+
+

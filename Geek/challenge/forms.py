@@ -2,7 +2,6 @@ from django import forms
 from .models import Category
 class SubmitForms(forms.Form):
     s_flag=forms.CharField()
-
 """
 class ScoreboardForm(forms.Form):
     list=((0,"看所有人"),(1,"只看新生"))
