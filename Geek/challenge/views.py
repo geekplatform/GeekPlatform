@@ -34,8 +34,9 @@ def index(request):
     has_solved_title = []
     sql = "SELECT challenge_challenge.title FROM challenge_solve JOIN challenge_challenge ON challenge_solve.challenge_id_id= challenge_challenge.id WHERE team_id_id=%s"
     has_solved = sql_commit(sql, pk)
-    for (index, title) in has_solved:
-        has_solved_title.append(title['title'])
+    if has_solved:
+        for (index, title) in has_solved:
+            has_solved_title.append(title['title'])
 
     tags = Category.objects.all()
     current_user = request.user
@@ -167,7 +168,7 @@ def scoreboard(request, secret, category):
         sql = "SELECT team_id_id AS id, MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id  GROUP BY team_id_id ORDER BY score DESC ;"
         results =sql_commit(sql)
     # 看所有分类+大一
-    elif category == 1 and freshman == 1:
+    elif category == 0 and freshman == 1:
         sql = "SELECT team_id_id AS id,MAX(auth_user.username) AS teamname,SUM(challenge_challenge.value) AS score FROM challenge_solve JOIN challenge_challenge ON challenge_challenge.id = challenge_solve.challenge_id_id JOIN auth_user ON auth_user.id=challenge_solve.team_id_id JOIN accounts_teams ON  accounts_teams.team_id=challenge_solve.team_id_id WHERE   accounts_teams.is_freshman= 1  GROUP BY team_id_id ORDER BY score DESC ;"
         results =sql_commit(sql)
     # 看指定分类+所有人

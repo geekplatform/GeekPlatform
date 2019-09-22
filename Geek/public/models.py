@@ -1,5 +1,6 @@
 from django.db import models
 from mdeditor.fields import MDTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 
@@ -18,6 +19,7 @@ class Introduce(models.Model):
     # 标题
     title = models.CharField(max_length=50, default="", verbose_name="题目")
     # 内容
+    # content = RichTextUploadingField(verbose_name="内容")
     content = MDTextField()
     # 创建时间
     create_time = models.DateTimeField(auto_now_add=True)

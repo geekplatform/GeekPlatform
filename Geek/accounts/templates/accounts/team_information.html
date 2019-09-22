@@ -13,7 +13,7 @@
         
 {% endblock style %}
 
-{% block page_word %}information{% endblock page_word %}
+<!-- {% block page_word %}information{% endblock page_word %} -->
 
 {% block body %}
     <div class="container regi" data-scroll-reveal="enter over 1s">
@@ -80,6 +80,71 @@
             </div>  
         </form>
     </div>
+
+    <!-- <div class="container regi" data-scroll-reveal="enter over 1s">
+        <form action="" method="post" class="form">
+            {% csrf_token %}
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1">队伍名</span>
+                <input type="text" class="form-control" placeholder="Username" maxlength="50" aria-describedby="sizing-addon1" name="username" value="{{ team_information.username }}">
+            </div>
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1">队员一</span>
+                <input type="text" class="form-control" placeholder="memberID" maxlength="50" aria-describedby="sizing-addon1" name="member_one_name" value="{{ team_information.teams.team_member_one_name }}">
+            </div>
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1">队员二</span>
+                <input type="text" class="form-control" placeholder="memberID" maxlength="50" aria-describedby="sizing-addon1" name="member_two_name" value="{{ team_information.teams.team_member_two_name}}">
+            </div>
+            <div class="form-group input-group input-group-lg" >
+                <span class="input-group-addon" id="sizing-addon1">本校</span>
+                <select class="form-control" name="is_school" id="id_is_school" value="{{ team_information.teams.is_school }}">
+                    {% if team_information.teams.is_school == True %}
+                        <option value="1" >未知</option>
+                        <option value="2" selected>是</option>
+                        <option value="3">否</option>
+                    {% elif team_information.teams.is_school == False %}
+                        <option value="1" >未知</option>
+                        <option value="2" >是</option>
+                        <option value="3" selected>否</option>
+                    {% else %}
+                        <option value="1" selected>未知</option>
+                        <option value="2" >是</option>
+                        <option value="3">否</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="form-group input-group input-group-lg" >
+                <span class="input-group-addon" id="sizing-addon1">大一</span>
+                <select class="form-control" name="is_freshman" id="id_is_freshman">
+                    {% if team_information.teams.is_freshman == True %}
+                        <option value="1" >未知</option>
+                        <option value="2" selected>是</option>
+                        <option value="3">否</option>
+                    {% elif team_information.teams.is_freshman == False %}
+                        <option value="1" >未知</option>
+                        <option value="2" >是</option>
+                        <option value="3" selected>否</option>
+                    {% else %}
+                        <option value="1" selected>未知</option>
+                        <option value="2" >是</option>
+                        <option value="3">否</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1">队员一学号</span>
+                <input type="text" class="form-control" placeholder="memberID" maxlength="10" aria-describedby="sizing-addon1" name="member_one_school_ID" value="{{ team_information.teams.team_member_one_school_ID }}">
+            </div>
+            <div class="input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1">队员二学号</span>
+                <input type="text" class="form-control" placeholder="memberID" maxlength="10" aria-describedby="sizing-addon1" name="member_two_school_ID" value="{{ team_information.teams.team_member_two_school_ID }}">
+            </div>
+            <div>
+                <button class="btn btn-info btn-block btn-lg" type="submit">提交</button>
+            </div>  
+        </form>
+    </div> -->
 {% endblock body %}
 
 {% block script %}

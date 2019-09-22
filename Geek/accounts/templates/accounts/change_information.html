@@ -14,6 +14,7 @@
     <a href="{% url 'accounts:logout' %}">logout</a>
     <a href="{% url 'accounts:team_information' %}">team_information</a>
     <a href="{% url 'accounts:change_password' %}">change_password</a>
+    
     <form action="" method="post">
         {% csrf_token %}
         {{ change_information_forms.errors }}

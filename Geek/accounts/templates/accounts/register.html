@@ -15,11 +15,11 @@
         <form action="" method="post" class="form">
             {% csrf_token %}
             <div class="input-group input-group-lg">
-                <span class="input-group-addon" id="sizing-addon1">用户名</span>
+                <span class="input-group-addon" id="sizing-addon1">用 &nbsp;户&nbsp;名</span>
                 <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" name="username">
             </div>
             <div class="input-group input-group-lg">
-                <span class="input-group-addon" id="sizing-addon1">密码</span>
+                <span class="input-group-addon" id="sizing-addon1">密 &nbsp; &nbsp; &nbsp;&nbsp;码</span>
                 <input type="password" class="form-control" placeholder="password" aria-describedby="sizing-addon1" name="password1">
             </div>
             <div class="input-group input-group-lg">
@@ -46,9 +46,9 @@
         
         {% if register_form.errors.password1 or register_form.errors.password2 %}
             {% if register_form.errors.password1 %}
-                alert('两次密码字段不一样或不符合要求');
+                alert('1、包含字母，数字和仅有的@/./+/-/_符号。\n 2、你的密码必须包含至少 8 个字符。\n3、你的密码不能是大家都爱用的常见密码。\n');
             {% else %}
-                alert('两次密码字段不一样或不符合要求');
+                alert('1、包含字母，数字和仅有的@/./+/-/_符号。\n 2、你的密码必须包含至少 8 个字符。\n3、你的密码不能是大家都爱用的常见密码。\n');
             {% endif %}       
         {% endif %}
     {% endif %}

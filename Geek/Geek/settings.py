@@ -24,7 +24,7 @@ SECRET_KEY = '0lpv%5+strq+*xq_9p4fbnpwm_w-%t($o9mrie!8!4$p__vom^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'challenge',
     'public',
     'mdeditor',
+    'ckeditor',#富文本编辑器
+    'ckeditor_uploader'#富文本编辑器上传图片模块
 ]
 
 MIDDLEWARE = [
@@ -75,6 +77,13 @@ WSGI_APPLICATION = 'Geek.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -84,6 +93,28 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
+}
+
+
+
+#log
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/debug.log'),
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
 }
 
 # Password validation
@@ -128,4 +159,16 @@ STATICFILES_DIRS = [
 LOGIN_URL = '/accounts/login/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media').replace("//","/")
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',  # 工具条功能
+        'height': 300,  # 编辑器高度
+        'width': 800,  # 编辑器宽
+    },
+}
+
+CKEDITOR_UPLOAD_PATH = ''
+
 

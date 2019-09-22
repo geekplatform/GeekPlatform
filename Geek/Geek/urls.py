@@ -25,6 +25,8 @@ urlpatterns = [
     path('',include('accounts.urls')),
     path('',include('challenge.urls')),
     path('',include('public.urls')),
+    path('mdeditor/', include('mdeditor.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls'))
 
 ]
 

@@ -11,29 +11,60 @@
 {% endblock link %}
 
 {% block style %}
+body{
+    color:#fbe25f;
+    background:#1b1b1b;
+}
+.text-muted{
+    color:#fbe25f;
+}
        
 {% endblock style %}
 
 {% block page_word %}{% endblock page_word %}
 
+
+{% block image %}
+<div style="background-image: url({% static 'base/logo.png' %});height: 700px; background-repeat: no-repeat;
+background-position: center center;
+background-size: 680px;">
+
+</div>
+{% endblock image %}
+
 {% block body %}
-    <div class="container regi">
+    <div class="container regi" >
+         
         <div class="i-title">
             {{ introduce.title }}
         </div>
         <hr>
         <div class="i-content md-img">
-            {{ introduce.content|safe }}
+            <!-- {{ introduce.content|safe }} -->
+            <div class="article-content text-muted" id="post_content">{{ introduce.content }}</div>
         </div>
         <div class="e-img">
-            <img src="{% static 'public\about\wechat.png' %}" alt="" srcset=""  data-scroll-reveal="enter right over 1s">
-            <img src="{% static 'public\about\QQ.png' %}" alt="" srcset=""  data-scroll-reveal="enter left over 1s">
+            <div class="i-title">
+                快快扫码
+            </div>
+            <img src="{% static 'public\about\wechat.png' %}" alt="" srcset="" data-scroll-reveal="enter right over 1s">
+            <img src="{% static 'public\about\QQ.png' %}" alt="" srcset="" data-scroll-reveal="enter left over 1s">
         </div>
     </div>
 
 {% endblock body %}
 
 {% block script %}
+<script src="https://cdn.bootcss.com/showdown/1.9.0/showdown.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(() => {
+        var src = $('#post_content').text()
+        var converter = new showdown.Converter();
+        var html = converter.makeHtml(src);
+        $('#post_content').html(html);
+       
+    })
     
+    </script>
 {% endblock script %}
 

@@ -1,19 +1,24 @@
 .regi{
-    background-color:rgb(255, 255, 255);
-    width:70%;
-    /* height:650px; */
+    /* background-color:rgb(255, 255, 255);
+    width:70%; */
     position:relative;
-    top:200px;
-    border-radius:10px;
-    box-shadow:10px 5px 50px rgb(133, 124, 124);
+    top:-600px;
+    
+    background-repeat: no-repeat;
+    background-position: center -200px;
+    background-size: 680px;
+    font-size: 1.3em;
+    /* border-radius:10px;
+    box-shadow:10px 5px 50px rgb(133, 124, 124); */
 }
 .i-title{
     text-align: center;
-    font: 2em sans-serif;
+    font-size: 35px;
+    font-weight: 700;
     margin-top: 10px;
 }
 .i-content{
-    /* text-align: center; */
+    /* font-size: 1em; */
 }
 .md-img ul li ul li img,
 .md-img ul li p img,

@@ -51,13 +51,13 @@ style="border:2px solid #dff0d8;"
                         <div class="slide" style="display: none;">
                             <ul id="myTab" class="nav nav-tabs nav-bor">
                                 <li class="active">
-                                    <a href="#{{ tag }}z{{ challenge.id }}" data-toggle="tab" class="fir">
-                                        challenge{{ forloop.counter }}
+                                    <a href="#{{ tag }}z{{ challenge.id }}" data-toggle="tab" class="fir" style="font-size:1.3em;font-weight:600;">
+                                        challenge{% comment %}{{ forloop.counter }} {% endcomment %}
                                     </a>
                                 </li>
                                 {% if challenge.hints %}
                                 <li>
-                                    <a href="#{{ tag }}f{{ challenge.id }}" data-toggle="tab">hint</a>
+                                    <a href="#{{ tag }}f{{ challenge.id }}" data-toggle="tab" style="font-size:1.3em;font-weight:600;">hint</a>
                                 </li>
                                 {% endif %}
 
@@ -70,6 +70,7 @@ style="border:2px solid #dff0d8;"
                                     <div class="c-link">
                                         地址:<a href="{{ challenge.link }}">{{ challenge.link }}</a>
                                     </div>
+                                    {% if challenge.title not in has_solved_title %}
                                     <div class="flag-form">
                                         <form action="" method="POST">
                                             {% csrf_token %}
@@ -89,6 +90,7 @@ style="border:2px solid #dff0d8;"
                                             </div>
                                         </form>
                                     </div>
+                                    {% endif %}
                                 </div>
 
 
@@ -151,6 +153,7 @@ style="border:2px solid #dff0d8;"
                                     <div class="c-link">
                                         地址:<a href="">{{ challenge.link }}</a>
                                     </div>
+                                    {% if challenge.title not in has_solved_title %}
                                     <div class="flag-form">
                                         <form action="" method="POST">
                                             {% csrf_token %}
@@ -170,6 +173,7 @@ style="border:2px solid #dff0d8;"
                                             </div>
                                         </form>
                                     </div>
+                                    {% endif %}
                                 </div>
 
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 # Create your models here.
@@ -32,9 +33,9 @@ class Challenge(models.Model):
     # 题目地址
     link = models.CharField(verbose_name="题目地址",null=True,max_length=500,default=" ")
     # 创建时间
-    created_time = models.DateTimeField(verbose_name="创建时间")
+    created_time = models.DateTimeField(verbose_name="创建时间",default = timezone.now())
     # 最后一次修改时间
-    modified_time = models.DateTimeField(verbose_name="最后一次修改时间")
+    modified_time = models.DateTimeField(verbose_name="最后一次修改时间",auto_now=True)
     # 作者
     author = models.ForeignKey(Author, verbose_name="出题人", on_delete=models.CASCADE)
     # 提示

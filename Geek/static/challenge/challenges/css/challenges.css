@@ -169,9 +169,13 @@ a{
 
 /* 题目描述 */
 .c-content{
+    
     height: 30px;
     position: relative;
     top:10px;
+}
+.c-content p{
+    font-weight: 600;
 }
 /* 题目链接 */
 .c-link{
@@ -180,6 +184,7 @@ a{
     text-align: left;
     position: relative;
     top: 100px;
+    left: 10px;
 }
 .c-link a{
     word-wrap:break-word;
